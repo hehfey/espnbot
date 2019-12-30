@@ -1,5 +1,6 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
+const config = require("./config.json");
 const axios = require("axios");
 
 client.on("ready", () => {
@@ -13,18 +14,20 @@ client.on("ready", () => {
 client.on("message", async message => {
   if (message.author.bot) return;
 
-  if (message.content.indexOf("!") !== 0) return;
+  if (message.content.indexOf(config.prefix) !== 0) return;
 
-  const args = message.content
+  var args = message.content
     .slice(config.prefix.length)
     .trim()
     .split(/ +/g);
+
   const command = args.shift().toLowerCase();
 
   if (command === "score") {
-    //message.reply(`Sure! Let me get you the score.`);
+    const type = args.join(" ").toString().replace(/[^\w\s!?]/g,'');
+    //message.reply(`Sure ${message.author}! Let me get you the score.`);
     axios
-      .get("http://hehfey.com/webhooks/scrape.php")
+      .get("http://hehfey.com/webhooks/scrape.php?type=" + type)
       .then(function(response) {})
       .catch(function(error) {
         console.log(error);
@@ -47,4 +50,4 @@ client.on("message", async message => {
   }
 });
 
-client.login("NjYxMDc0NzYxNDU1MjM5MTcx.Xgmf8g.2KKXd2u2DkstCf95EsxbAhelNRY");
+client.login(config.token);
