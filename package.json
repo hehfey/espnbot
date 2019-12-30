@@ -1,0 +1,31 @@
+{
+  "name": "espnbot",
+  "version": "1.0.0",
+  "description": "ESPN Bot for r/Razorbacks",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hehfey/espnbot.git"
+  },
+  "keywords": [
+    "razorbacks"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hehfey/espnbot/issues"
+  },
+  "homepage": "https://github.com/hehfey/espnbot#readme",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "discord.js": "^11.5.1"
+  },
+  "engines": {
+    "node": "13.2.0",
+    "npm": "*"
+  },
+}
