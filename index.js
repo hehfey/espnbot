@@ -1,6 +1,5 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
-const config = require("./config.json");
 const axios = require("axios");
 
 client.on("ready", () => {
@@ -12,13 +11,14 @@ client.on("ready", () => {
 });
 
 client.on("message", async message => {
-  if (message.channel.id == "613136367219769391"){
+  console.log("Received message from channel (" + message.channel.id + ")");
+  if (message.channel.id == "661221966593654785" || message.channel.id == "613136324274159616" || message.channel.id == "613136367219769391" || message.channel.id == "613136415944867917"){
     if (message.author.bot) return;
 
-    if (message.content.indexOf(config.prefix) !== 0) return;
+    if (message.content.indexOf(process.env.PREFIX) !== 0) return;
 
     var args = message.content
-      .slice(config.prefix.length)
+      .slice(process.env.PREFIX.length)
       .trim()
       .split(/ +/g);
 
@@ -26,10 +26,13 @@ client.on("message", async message => {
 
     if (command === "score") {
       const type = args.join(" ").toString().replace(/[^\w\s!?]/g,'');
+      console.log(type);
       //message.reply(`Sure ${message.author}! Let me get you the score.`);
       axios
-        .get("http://hehfey.com/webhooks/scrape.php?type=" + type)
-        .then(function(response) {})
+        .get("http://hehfey.com/webhooks/scrape.php?type=" + type + "&channel=" + message.channel.id)
+        .then(function(response) {
+          console.log("http://hehfey.com/webhooks/scrape.php?type=" + type + "&channel=" + message.channel.id);
+          })
         .catch(function(error) {
           console.log(error);
         });
@@ -52,4 +55,4 @@ client.on("message", async message => {
   }
 });
 
-client.login(config.token);
+client.login(process.env.SECRET);
